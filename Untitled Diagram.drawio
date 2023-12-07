@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-07T19:17:32.004Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="Uzhj4701ddpPjWhT2YWe" version="22.1.7" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-07T20:54:30.982Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="yhVzL18pg4fHbVtvwWw5" version="22.1.7" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2492" dy="1618" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
+    <mxGraphModel dx="2166" dy="1443" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -274,7 +274,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="rQqBpcI3bK0FMXz7D3o5-73" value="Serviço de BI (Visualização de Dados) /&lt;br&gt;Serviço de BI (Visualização de Dados) /&lt;br&gt;Serviço de proteção de dados utilizando endpoint por número de processador por servidor" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="rQqBpcI3bK0FMXz7D3o5-73" value="Serviço de BI (Visualização de Dados) /&lt;br&gt;Serviço de proteção de dados utilizando endpoint por número de processador por servidor" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="680" y="375.91" width="266" height="116.77" as="geometry" />
         </mxCell>
         <mxCell id="rQqBpcI3bK0FMXz7D3o5-74" value="Serviços de Analytics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.886;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="rQqBpcI3bK0FMXz7D3o5-70" target="rQqBpcI3bK0FMXz7D3o5-73" edge="1">
