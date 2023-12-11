@@ -1,9 +1,56 @@
-<mxfile host="app.diagrams.net" modified="2023-12-11T19:32:00.222Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" version="22.1.7" etag="bwbLeWd9TBbNZg-_pAgw" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-11T19:54:10.522Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="dJWgkK6iqaiMjM-Rx18_" version="22.1.7" type="github">
   <diagram name="Page-1" id="eBpBEquEzqW_6EQbbjeQ">
-    <mxGraphModel>
+    <mxGraphModel dx="28" dy="1570" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="NXApJFs_ief28fJbwk30-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NXApJFs_ief28fJbwk30-1" target="NXApJFs_ief28fJbwk30-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-1" value="&lt;div&gt;Serviços de BD /&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Armazenamento de Banco de Dados /&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Serviço de Cache Gerenciado Métrica /&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Serviços Container /&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Serviço de Computação sem servidor - Serverless &lt;br&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1313" y="-320.00000000000006" width="217" height="217" as="geometry" />
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NXApJFs_ief28fJbwk30-2" target="NXApJFs_ief28fJbwk30-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-2" value="&lt;div&gt;4 vCPUs e 16 GB de memória RAM /&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;8 vCPU e 32 GB de memória RAM /&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;16 vCPU e 64 GB de memória RAM&lt;br&gt;&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1014" y="88" width="321.34" height="120.5" as="geometry" />
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NXApJFs_ief28fJbwk30-3" target="NXApJFs_ief28fJbwk30-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-3" value="&lt;div&gt;4 vCPUs e 16 GB de memória RAM /&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp;8 vCPU e 32 GB de memória RAM /&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;16 vCPU e 64 GB de memória RAM /&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;32 vCPU e 128 de GB memória RAM&lt;br&gt;&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="60" width="396" height="148.5" as="geometry" />
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-4" value="ORACLE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NXApJFs_ief28fJbwk30-6" target="NXApJFs_ief28fJbwk30-2">
+          <mxGeometry x="-0.2954" relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1290" y="2" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-5" value="MySQL / PostgreSQL / SQLServer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NXApJFs_ief28fJbwk30-6" target="NXApJFs_ief28fJbwk30-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1576" y="1" />
+              <mxPoint x="1576" />
+              <mxPoint x="1681" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-6" value="&lt;div&gt;MySQL /&lt;/div&gt;&lt;div&gt;PostgreSQL / &lt;br&gt;&lt;/div&gt;&lt;div&gt;SQLServer&lt;/div&gt;&lt;div&gt;ORACLE&lt;br&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1370" y="-50" width="103" height="103" as="geometry" />
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="NXApJFs_ief28fJbwk30-9" target="NXApJFs_ief28fJbwk30-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-9" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Serviço de armazenamento de blocos (SSD)&amp;nbsp; Gigabyte/Mês&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1297" y="300" width="176" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="NXApJFs_ief28fJbwk30-10" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;40GB até 32TB&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1305" y="480" width="160" height="60" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
