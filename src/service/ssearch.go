@@ -3,6 +3,7 @@ package service
 import (
 	"mysrv/util"
 	"fmt"
+	"strconv"
 )
 
 var ServerFront = util.TemplatePage(
@@ -130,11 +131,21 @@ var opt_IaaS_Cloud = MakeSelection(
 	"windows", "VM Windows",           2, opt_IaaS_Cloud_cpu,
 )
 
+var opt_IaaS_Storage_Size = &option{
+	nil, "Storage_Size",
+	func (vl string) string {
+		return fmt.Sprintf(`
+		<input min="40" max="32768" name="ISS" type="number" value="%s">GB
+		`, vl)
+	}, "ISS",
+	map[string]*option{"-": opt_submit},
+}
+
 var opt_IaaS_Storage = MakeSelection(
 	"IS", "Serviço de Armazenamento:",
 	"Storage_Type",
-	"SSD", "Serviço de armazenamento de blocos (SSD)", 0, opt_submit,
-	"HDD", "Serviço de armazenamento de blocos (HDD)", 1, opt_submit,
+	"SSD", "Serviço de armazenamento de blocos (SSD)", 0, opt_IaaS_Storage_Size,
+	"HDD", "Serviço de armazenamento de blocos (HDD)", 1, opt_IaaS_Storage_Size,
 )
 
 var opt_IaaS_Network_Trafic = MakeSelection(
@@ -276,7 +287,14 @@ func htmxHandler(
 		for node != opt_submit {
 			v := r.FormValue(node.Name)
 			info[node.DBName] = node.DBid[v]
-			node = node.Options[v]
+			_node, ok := node.Options[v]
+			if (!ok) {
+				_node = node.Options["-"]
+				intv, e := strconv.ParseInt(v, 10, 64)
+				if (e != nil) {panic(e)}
+				info[node.DBName] = int(intv)
+			}
+			node = _node
 		}
 		for k,v := range info {
 			fmt.Printf("%q=>%d\n", k, v)
@@ -289,7 +307,11 @@ func htmxHandler(
 	for node != nil {
 		v := r.FormValue(node.Name)
 		fmt.Fprintf(w, node.HTML(v))
-		node = node.Options[v]
+		_node, ok := node.Options[v]
+		if (!ok && v != "") {
+			_node = node.Options["-"]
+		}
+		node = _node
 	}
 
 	return false, nil // return render=false since there's no template to render
