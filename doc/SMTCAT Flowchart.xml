@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-11T19:00:02.993Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="zZUdH6tKEKGh6bABZYSt" version="22.1.7" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-11T19:27:28.874Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="Xk3KkzmX7U964vU9SmOm" version="22.1.7" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2269" dy="1498" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
+    <mxGraphModel dx="2739" dy="1750" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -56,9 +56,12 @@
         <mxCell id="ixGKhtHov63onsKk2bWm-11" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;2 / 4 / 8 / 16 / 32 / 64 / 128 GB de RAM&lt;/div&gt;" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="400" y="549" width="160" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="rQqBpcI3bK0FMXz7D3o5-69" value="&lt;div&gt;PaaS&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.667;exitY=0.147;exitDx=0;exitDy=0;exitPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="rQqBpcI3bK0FMXz7D3o5-0" target="rQqBpcI3bK0FMXz7D3o5-37" edge="1">
+        <mxCell id="rQqBpcI3bK0FMXz7D3o5-69" value="&lt;div&gt;PaaS&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.667;exitY=0.147;exitDx=0;exitDy=0;exitPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="rQqBpcI3bK0FMXz7D3o5-0" target="rQqBpcI3bK0FMXz7D3o5-32" edge="1">
           <mxGeometry x="-0.8321" relative="1" as="geometry">
             <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1011" y="105" />
+            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="rQqBpcI3bK0FMXz7D3o5-0" value="IaaS / PaaS SaaS" style="rhombus;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
