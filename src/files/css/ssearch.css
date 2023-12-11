@@ -1,0 +1,13 @@
+body {
+	color: white;
+	background-color: #1F1F1F;
+}
+
+#content {
+	padding-top: 20px;
+}
+
+
+.invisible {
+	display: none;
+}

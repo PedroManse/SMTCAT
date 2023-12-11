@@ -1,0 +1,68 @@
+
+{{ define "top nav init" }}
+<style>
+
+#top-nav  {
+	background-color: darkgrey;
+	color: black;
+	display: inline-block;
+	padding-left: 1%;
+	width: 99%;
+	height: 40px;
+}
+
+#top-nav > ul {
+	display: inline;
+	width: 100%;
+}
+
+#top-nav > ul > li {
+	padding-left: 20px;
+	display: inline;
+	margin: auto;
+}
+
+#top-nav > ul > li > a {
+	font-size: 20px;
+	color: black;
+	display: inline;
+}
+
+</style>
+
+<nav id="top-nav">
+	<ul id="top-nav">
+{{ end }}
+
+{{ define "top nav end" }}
+	</ul>
+	</nav>
+{{ end }}
+
+{{ define "nav acc" }}
+	<span style="float: right;">
+		{{ if .acc.ok }}
+		<p style="display: inline-block">
+			Olá {{.acc.name}}
+			<a href="login">Change Account!</a>
+		</p>
+		{{ else }}
+		<p style="display: inline-block">
+			Olá
+			<a href="login">Login!</a>
+			</p>
+		{{ end }}
+	</span>
+{{ end }}
+
+{{ define "nav ssearch" }}
+	<li><a href="/ssearch">Service Search</a></li>
+{{ end }}
+
+{{ define "nav" }}
+		{{ template "top nav init" }}
+		{{ template "nav ssearch" . }}
+		{{ template "nav acc" . }}
+		{{ template "top nav end" }}
+{{ end }}
+

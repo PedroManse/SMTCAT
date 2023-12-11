@@ -1,0 +1,13 @@
+span.acc {
+	float: right;
+}
+
+body {
+	color: white;
+	background-color: #1F1F1F;
+}
+
+span.acc > h2, span.acc > h3 {
+	display: inline-block;
+}
+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<script src="https://unpkg.com/htmx.org@1.9.8"></script>
+		<link href="/files/css/ssearch.css" rel="stylesheet" type="text/css">
+	</body>
+	<head>
+		{{ template "nav" . }}
+		<div id="content">
+			<form
+				id="getinfo"
+				hx-get="/ssearch/htmx"
+				hx-trigger="load, change"
+				hx-target="#info"
+				hx-swap="innerHTML"
+			>
+				<div id="info"> </div>
+			</form>
+		</div>
+	</head>
+</html>
