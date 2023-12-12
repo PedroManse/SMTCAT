@@ -100,6 +100,8 @@ func main() {
 
 	InitSQL("sqlite3.db")
 	InitPlugins()
+	// service/storemaker
+	service.InitStore() // read qs.txt and put info in StageMap
 
 	// site-wide services
 	http.Handle("/", index)
@@ -109,8 +111,8 @@ func main() {
 	http.Handle("/favicon.ico", StaticFile{"./files/dice.ico"})
 
 	// ssearch service
-	http.Handle("/ssearch", service.ServerFront)
-	http.Handle("/ssearch/htmx", service.ServerHTMX)
+	http.Handle("/ssearch", service.SSearchFront)
+	http.Handle("/ssearch/htmx", service.SSearchHTMX)
 
 	fmt.Println("running")
 	http.ListenAndServe("0.0.0.0:8080", nil)

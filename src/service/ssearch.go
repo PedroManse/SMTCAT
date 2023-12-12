@@ -6,16 +6,16 @@ import (
 	"strconv"
 )
 
-var ServerFront = util.TemplatePage(
-	"html/ssearch.gohtml", nil,
-	[]util.GOTMPlugin{util.GOTM_account, util.GOTM_mustacc},
-)
-
-var ServerHTMX = util.LogicPage(
-	"", nil,
-	[]util.GOTMPlugin{util.GOTM_account, util.GOTM_mustacc},
-	htmxHandler,
-)
+//var ServerFront = util.TemplatePage(
+//	"html/ssearch.gohtml", nil,
+//	[]util.GOTMPlugin{util.GOTM_account, util.GOTM_mustacc},
+//)
+//
+//var ServerHTMX = util.LogicPage(
+//	"", nil,
+//	[]util.GOTMPlugin{util.GOTM_account, util.GOTM_mustacc},
+//	htmxHandler,
+//)
 
 type option struct {
 	DBid map[string]int // internal db to id mapping

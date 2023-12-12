@@ -1,0 +1,27 @@
+
+@ROOT
+"Tipo de serviço"
+"IaaS":('IaaS')->IaaS
+"PaaS":('PaaS')->PaaS
+"SaaS":('SaaS')->SaaS
+
+@IaaS
+"Tipo de serviço"
+"Cloud":('cloud')->Cloud Storage
+
+@Cloud Storage
+"Gigabytes de armazenamento"
+"40-140":([input]+'GB')->Cloud RAM
+
+@Cloud RAM
+"Gigabytes de RAM"
+"1 GB":('1 GB')->Cloud CPU
+"2 GB":('2 GB')->Cloud CPU
+"4 GB":('4 GB')->Cloud CPU
+
+@Cloud CPU
+"Quantidade de CPUs"
+"1 vCPU":('1 vCPU')->END
+"2 vCPUs":('2 vCPUs')->END
+"4 vCPUs":('4 vCPUs')->END
+

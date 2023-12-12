@@ -8,8 +8,9 @@ import (
 	"gopkg.in/Knetic/govaluate.v2"
 	"strings"
 	"strconv"
+	"mysrv/util"
+	"net/url"
 )
-
 
 /*
 
@@ -130,7 +131,6 @@ func (opts Ooption) Validate(input string) (ok bool) {
 
 func (opts Ooption) NextOptName(input string) (string) {
 	for _, opt := range opts.Options {
-		fmt.Println(opt.text, input, opt.text == input, opt.nextOpt)
 		if (opt.text == input) {
 			return opt.nextOpt
 		}
@@ -164,11 +164,12 @@ func (opts Ooption) HTML(text, name, input string) (html string) {
 	if (input == "") {
 		html += fmt.Sprintf(`<option class="invisible" selected></option>`)
 	}
-	for i, opt := range opts.Options {
+	for _, opt := range opts.Options {
+		//fmt.Println(">>>>>", input, opt.text, input)
 		if (input == opt.text) {
-			html += fmt.Sprintf(`<option selected value="%s">%s</option>`, i, opt.text)
+			html += fmt.Sprintf(`<option selected="true" value="%s">%s</option>`, opt.text, opt.text)
 		} else {
-			html += fmt.Sprintf("<option value=%s>%s</option>", i, opt.text)
+			html += fmt.Sprintf("<option value=%q>%s</option>", opt.text, opt.text)
 		}
 	}
 	html+="</select> </div>"
@@ -217,9 +218,9 @@ type Stage struct {
 }
 
 func (S Stage) Next(input string, StageMap map[string]*Stage) (newstage *Stage) {
-	// assert S.Opt.Validate
-	newstage = StageMap[S.Opt.NextOptName(input)]
-	// assert Stage in map
+	var ok bool
+	newstage, ok = StageMap[S.Opt.NextOptName(input)]
+	if (!ok) {panic(fmt.Errorf("No such stage %q", S.Opt.NextOptName(input)))}
 	return
 }
 
@@ -227,11 +228,12 @@ func (S Stage) HTML(input string) string {
 	return S.Opt.HTML(S.StageText, S.StageName, input)
 }
 
-func init() {
+var StageMap = make(map[string]*Stage)
+
+func InitStore() {
 	StageFinder := regexp.MustCompile(`@([\w ç]+)\n"([\w() ç]+)"\n((?:.|\n.)+?)\n\n`)
 	OptionFinder := regexp.MustCompile(`^"([\w() ç]+)":(\(.*?\))->([\w ç]+?) ?(\(.*\))?$`)
 	RangeFinder := regexp.MustCompile(`^"(\d+)-(\d+)":(\(.*?\))->([\w ç]+?) ?(\(.*\))?$`)
-	StageMap := make(map[string]*Stage)
 
 	StoreFile := string(MustReadFile("qs.txt"))
 	stages := StageFinder.FindAllStringSubmatch(StoreFile, -1)
@@ -239,7 +241,6 @@ func init() {
 		if len(stage) < 4 {
 			panic(fmt.Errorf("`%s`\n doesn't have [group name, group text, options]", stage))
 		}
-		//StageText := stage[0]
 		StageName := stage[1]
 		StageText := stage[2]
 		StageOptions := strings.Split(stage[3], "\n")
@@ -280,14 +281,87 @@ func init() {
 				panic(fmt.Errorf("`%s` doens't fit neither in the option or range regex", option))
 			}
 		}
+		// put option array in Ooption
 		if (RangeOrOption == ModeOption) {
 			StageOption = Ooption{ opbf }
 		}
 
 		StageMap[StageName] = &Stage{StageName, StageText, StageOption, RangeOrOption}
 	}
-	fmt.Println(StageMap["ROOT"].HTML(""))
-	fmt.Println(StageMap["ROOT"].HTML("Cloud"))
-	fmt.Println(StageMap["ROOT"].Next("Cloud", StageMap))
+	StageMap["END"] = &Stage{StageName:"END"}
+}
+
+var SSearchFront = util.TemplatePage(
+	"html/ssearch.gohtml", nil,
+	[]util.GOTMPlugin{util.GOTM_account, util.GOTM_mustacc},
+)
+
+var SSearchHTMX = util.LogicPage(
+	"", nil,
+	[]util.GOTMPlugin{util.GOTM_account, util.GOTM_mustacc},
+	ssearchHtmxHandler,
+)
+
+
+func renderHTMX(
+	w util.HttpWriter, r util.HttpReq, email string,
+) {
+	var node *Stage = StageMap["ROOT"]
+	for node != nil{
+		input := r.FormValue(node.StageName)
+		fmt.Fprintf(w, node.HTML(input))
+		if (node.Opt.Validate(input)) {
+			node = node.Next(input, StageMap)
+		} else if (input != "") {
+			panic(fmt.Errorf("INVALID INPUT: %q", input))
+		} else { // input == ""
+			break
+		}
+
+		if (node.StageName == "END") {
+			fmt.Fprintf(w, `
+<form
+	id="sendinfo"
+	hx-include="#info input, #info select"
+	hx-patch="/ssearch/htmx"
+>
+<button>Enviar</button>
+</form>
+			`)
+			break
+		}
+	}
+}
+
+func BatchRequest(
+	w util.HttpWriter, r util.HttpReq, email string,
+) {
+	requests[email] = append(requests[email], r.Form)
+
+	fmt.Fprint(w, StageMap["ROOT"].HTML(""))
+	fmt.Fprint(w, `<p>Carrinho atualizado</p>`)
+	fmt.Fprintf(w, `<div hx-swap-oob="true" id="cart">%s</div>`, requests[email])
+}
+
+var requests = make(map[string][]url.Values) // email -> forms
+func ssearchHtmxHandler(
+	w util.HttpWriter, r util.HttpReq, info map[string]any,
+) (render bool, addinfo any) {
+	r.ParseForm()
+
+	if (r.Method == "GET") {
+		renderHTMX(w, r, info["acc"].(map[string]any)["email"].(string))
+	} else if (r.Method == "PATCH") {
+		BatchRequest(w, r, info["acc"].(map[string]any)["email"].(string))
+	} else if (r.Method == "POST") {
+		ProcessRequests(w, r, info["acc"].(map[string]any)["email"].(string))
+	}
+	return
+}
+
+func ProcessRequests(
+	w util.HttpWriter, r util.HttpReq, email string,
+) {
+
 }
 
