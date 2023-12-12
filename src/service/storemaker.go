@@ -74,6 +74,21 @@ func rngpriceEval(expr string, price float64, input int64) (newprice float64) {
 	return result.(float64)
 }
 
+func (rng Orange) ToIndex(input string) (int) {
+	vmin, e := strconv.ParseInt(input, 10, 64)
+	if (e!=nil) {panic(e)}
+	return int(vmin)
+}
+
+func (opts Ooption) ToIndex(input string) (int) {
+	for i, opt := range opts.Options {
+		if (opt.text == input) {
+			return i
+		}
+	}
+	return -1
+}
+
 func (opts Ooption) PriceEval(price float64, input string) (newprice float64) {
 	for _, opt := range opts.Options {
 		if (opt.text == input) {
@@ -115,6 +130,7 @@ func (opts Ooption) Validate(input string) (ok bool) {
 
 func (opts Ooption) NextOptName(input string) (string) {
 	for _, opt := range opts.Options {
+		fmt.Println(opt.text, input, opt.text == input, opt.nextOpt)
 		if (opt.text == input) {
 			return opt.nextOpt
 		}
@@ -132,6 +148,33 @@ func (rng Orange) NextOptName(input string) (string) {
 	return rng.nextOpt
 }
 
+func (rng Orange) HTML(text, name, input string) (html string) {
+	html = fmt.Sprintf(
+		`<div> <label for=%q>%s</label> <input min="%d" max="%d" name=%q value="%s" type="number"> </div>`,
+		name, text, rng.min, rng.max, name, input,
+	)
+	return
+}
+
+func (opts Ooption) HTML(text, name, input string) (html string) {
+	html = fmt.Sprintf(
+		`<div> <label for=%q>%s</label><select name=%q id=%q>`,
+		name, text, name, name,
+	)
+	if (input == "") {
+		html += fmt.Sprintf(`<option class="invisible" selected></option>`)
+	}
+	for i, opt := range opts.Options {
+		if (input == opt.text) {
+			html += fmt.Sprintf(`<option selected value="%s">%s</option>`, i, opt.text)
+		} else {
+			html += fmt.Sprintf("<option value=%s>%s</option>", i, opt.text)
+		}
+	}
+	html+="</select> </div>"
+	return
+}
+
 type CartOption interface {
 	// usable input
 	Validate(input string) (ok bool)
@@ -141,6 +184,10 @@ type CartOption interface {
 	PriceEval(price float64, input string) (newprice float64)
 	// next option
 	NextOptName(input string) string
+	// HTML representation of stage (if input=""; no option/range has been selected)
+	HTML(text, name, input string) string
+	// (in case of Ooption) string value to index of choice
+	ToIndex(input string) int
 }
 
 type _option struct {
@@ -169,10 +216,22 @@ type Stage struct {
 	RangeOrOption StageMode
 }
 
+func (S Stage) Next(input string, StageMap map[string]*Stage) (newstage *Stage) {
+	// assert S.Opt.Validate
+	newstage = StageMap[S.Opt.NextOptName(input)]
+	// assert Stage in map
+	return
+}
+
+func (S Stage) HTML(input string) string {
+	return S.Opt.HTML(S.StageText, S.StageName, input)
+}
+
 func init() {
-	StageFinder := regexp.MustCompile(`@([\w ]+)\n"([\w() ]+)"\n((?:.|\n.)+?)\n\n`)
-	OptionFinder := regexp.MustCompile(`^"([\w() ]+)":(\(.*?\))->([\w ]+?) ?(\(.*\))?$`)
-	RangeFinder := regexp.MustCompile(`^"(\d+)-(\d+)":(\(.*?\))->([\w ]+?) ?(\(.*\))?$`)
+	StageFinder := regexp.MustCompile(`@([\w ç]+)\n"([\w() ç]+)"\n((?:.|\n.)+?)\n\n`)
+	OptionFinder := regexp.MustCompile(`^"([\w() ç]+)":(\(.*?\))->([\w ç]+?) ?(\(.*\))?$`)
+	RangeFinder := regexp.MustCompile(`^"(\d+)-(\d+)":(\(.*?\))->([\w ç]+?) ?(\(.*\))?$`)
+	StageMap := make(map[string]*Stage)
 
 	StoreFile := string(MustReadFile("qs.txt"))
 	stages := StageFinder.FindAllStringSubmatch(StoreFile, -1)
@@ -197,10 +256,10 @@ func init() {
 			if (opt != nil) {
 				RangeOrOption = ModeOption
 				opbf[i] = _option{
-					opt[1],
-					opt[2],
-					opt[3],
-					opt[4],
+					text: opt[1],
+					cartExpr: opt[2],
+					nextOpt: opt[3],
+					priceExpr: opt[4],
 				}
 			} else if (rng != nil) {
 				RangeOrOption = ModeRange
@@ -225,13 +284,10 @@ func init() {
 			StageOption = Ooption{ opbf }
 		}
 
-		//fmt.Println("is range:", RangeOrOption == ModeRange)
-		//fmt.Println(StageOption)
-		a := Stage{StageName, StageText, StageOption, RangeOrOption}
-		fmt.Printf("%q\n", a)
-
-		//fmt.Printf("Name: %s\nText: %q\nOptions: %s\n",
-		//StageName, StageText, StageOptions)
-		fmt.Println("==============================")
+		StageMap[StageName] = &Stage{StageName, StageText, StageOption, RangeOrOption}
 	}
+	fmt.Println(StageMap["ROOT"].HTML(""))
+	fmt.Println(StageMap["ROOT"].HTML("Cloud"))
+	fmt.Println(StageMap["ROOT"].Next("Cloud", StageMap))
 }
+
