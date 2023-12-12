@@ -5,8 +5,8 @@ import (
 	"os"
 	"io"
 	"fmt"
-	"bytes"
 	"gopkg.in/Knetic/govaluate.v2"
+	"strings"
 	"strconv"
 )
 
@@ -163,10 +163,10 @@ type Orange struct {
 }
 
 type Stage struct {
-	StageName []byte
-	StageText []byte
+	StageName string
+	StageText string
 	Opt CartOption
-	MayEnd bool
+	RangeOrOption StageMode
 }
 
 func init() {
@@ -174,8 +174,8 @@ func init() {
 	OptionFinder := regexp.MustCompile(`^"([\w() ]+)":(\(.*?\))->([\w ]+?) ?(\(.*\))?$`)
 	RangeFinder := regexp.MustCompile(`^"(\d+)-(\d+)":(\(.*?\))->([\w ]+?) ?(\(.*\))?$`)
 
-	StoreFile := MustReadFile("qs.txt")
-	stages := StageFinder.FindAllSubmatch(StoreFile, -1)
+	StoreFile := string(MustReadFile("qs.txt"))
+	stages := StageFinder.FindAllStringSubmatch(StoreFile, -1)
 	for _, stage := range stages {
 		if len(stage) < 4 {
 			panic(fmt.Errorf("`%s`\n doesn't have [group name, group text, options]", stage))
@@ -183,7 +183,7 @@ func init() {
 		//StageText := stage[0]
 		StageName := stage[1]
 		StageText := stage[2]
-		StageOptions := bytes.Split(stage[3], []byte("\n"))
+		StageOptions := strings.Split(stage[3], "\n")
 		if len(StageOptions[len(StageOptions)-1]) == 0 {
 			StageOptions = StageOptions[:len(StageOptions)-1]
 		}
@@ -225,12 +225,13 @@ func init() {
 			StageOption = Ooption{ opbf }
 		}
 
-		fmt.Println("is range:", RangeOrOption == ModeRange)
-		fmt.Println(StageOption)
-		//Stage{RangeName, StageText}
+		//fmt.Println("is range:", RangeOrOption == ModeRange)
+		//fmt.Println(StageOption)
+		a := Stage{StageName, StageText, StageOption, RangeOrOption}
+		fmt.Printf("%q\n", a)
 
-		fmt.Printf("Name: %s\nText: %q\nOptions: %s\n",
-		StageName, StageText, StageOptions)
+		//fmt.Printf("Name: %s\nText: %q\nOptions: %s\n",
+		//StageName, StageText, StageOptions)
 		fmt.Println("==============================")
 	}
 }
