@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"mysrv/util"
 	"net/url"
+	"html/template"
 )
 
 /*
@@ -150,7 +151,7 @@ func (rng Orange) NextOptName(input string) (string) {
 
 func (rng Orange) HTML(text, name, input string) (html string) {
 	html = fmt.Sprintf(
-		`<div> <label for=%q>%s</label> <input min="%d" max="%d" name=%q value="%s" type="number"> </div>`,
+		`<div> <label for=%q>%s</label> <input tabindex="0" min="%d" max="%d" name=%q value="%s" type="number"> </div>`,
 		name, text, rng.min, rng.max, name, input,
 	)
 	return
@@ -158,19 +159,21 @@ func (rng Orange) HTML(text, name, input string) (html string) {
 
 func (opts Ooption) HTML(text, name, input string) (html string) {
 	html = fmt.Sprintf(
-		`<div> <label for=%q>%s</label><select name=%q id=%q>`,
+		`<div> <label for=%q>%s</label><select tabindex="0" name=%q id=%q>`,
 		name, text, name, name,
 	)
 	if (input == "") {
-		html += fmt.Sprintf(`<option class="invisible" selected></option>`)
+		html += fmt.Sprintf(`<option class="invisible" tabindex="-1" selected></option>`)
 	}
 	for _, opt := range opts.Options {
-		//fmt.Println(">>>>>", input, opt.text, input)
+		s:=""
 		if (input == opt.text) {
-			html += fmt.Sprintf(`<option selected="true" value="%s">%s</option>`, opt.text, opt.text)
-		} else {
-			html += fmt.Sprintf("<option value=%q>%s</option>", opt.text, opt.text)
+			s = "selected"
 		}
+		//else {
+		//	//html += fmt.Sprintf("<option tabindex="0" value=%q>%s</option>", opt.text, opt.text)
+		//}
+		html += fmt.Sprintf(`<option tabindex="0" %s value="%s">%s</option>`, s, opt.text, opt.text)
 	}
 	html+="</select> </div>"
 	return
@@ -231,9 +234,16 @@ func (S Stage) HTML(input string) string {
 var StageMap = make(map[string]*Stage)
 
 func InitStore() {
-	StageFinder := regexp.MustCompile(`@([\w ç]+)\n"([\w() ç]+)"\n((?:.|\n.)+?)\n\n`)
-	OptionFinder := regexp.MustCompile(`^"([\w() ç]+)":(\(.*?\))->([\w ç]+?) ?(\(.*\))?$`)
-	RangeFinder := regexp.MustCompile(`^"(\d+)-(\d+)":(\(.*?\))->([\w ç]+?) ?(\(.*\))?$`)
+	StageFinder := regexp.MustCompile(
+		`@(.+)\n"(.+)"\n((?:.|\n.)+?)\n\n`,
+	)
+	// warning OptionFinder matches RangeFinder!
+	OptionFinder := regexp.MustCompile(
+		`^"(.*?)":(\(.*?\))->(.*?)(?: =(\(.*\))?)?$`,
+	)
+	RangeFinder := regexp.MustCompile(
+		`^"(\d+)-(\d+)":(\(.*?\))->(.*?)(?: =(\(.*\))?)?$`,
+	)
 
 	StoreFile := string(MustReadFile("qs.txt"))
 	stages := StageFinder.FindAllStringSubmatch(StoreFile, -1)
@@ -254,7 +264,7 @@ func InitStore() {
 		for i, option := range StageOptions {
 			opt := OptionFinder.FindStringSubmatch(string(option))
 			rng := RangeFinder.FindStringSubmatch(string(option))
-			if (opt != nil) {
+			if (opt != nil && rng == nil) {
 				RangeOrOption = ModeOption
 				opbf[i] = _option{
 					text: opt[1],
@@ -293,15 +303,23 @@ func InitStore() {
 
 var SSearchFront = util.TemplatePage(
 	"html/ssearch.gohtml", nil,
-	[]util.GOTMPlugin{util.GOTM_account, util.GOTM_mustacc},
+	[]util.GOTMPlugin{util.GOTM_account, util.GOTM_mustacc, GOTM_cart},
 )
+
+var GOTM_cart = util.GOTMPlugin{"cart",
+	func (
+		w util.HttpWriter, r util.HttpReq, info map[string]any,
+	) (render bool, addinfo any) {
+		email := info["acc"].(map[string]any)["email"].(string)
+		return true, template.HTML(RenderCart(email))
+	},
+}
 
 var SSearchHTMX = util.LogicPage(
 	"", nil,
 	[]util.GOTMPlugin{util.GOTM_account, util.GOTM_mustacc},
 	ssearchHtmxHandler,
 )
-
 
 func renderHTMX(
 	w util.HttpWriter, r util.HttpReq, email string,
@@ -333,6 +351,45 @@ func renderHTMX(
 	}
 }
 
+type cface struct {
+	items []string
+	price float64
+}
+
+func RenderCart(email string) (HTML string) {
+	var cartlist = make([]cface, len(requests[email]))
+
+	for i, rlist := range requests[email] {
+		var requestlist = []string{}
+		var requestprice float64
+
+		var node *Stage = StageMap["ROOT"]
+		for node.StageName != "END" {
+			input := rlist.Get(node.StageName)
+			if (!node.Opt.Validate(input)) { return "" }
+			requestlist = append(requestlist, node.StageText+node.Opt.CartEval(input))
+			requestprice = node.Opt.PriceEval(requestprice, input)
+			node = node.Next(input, StageMap)
+		}
+		cartlist[i] = cface{requestlist, requestprice}
+	}
+	var totalprice float64
+	for itemindex, cart := range cartlist {
+		HTML+=fmt.Sprintf("<fieldset><legend>Item: %d</legend>", itemindex+1)
+
+		for _, item := range cart.items {
+			HTML+=fmt.Sprintf("<h4>%s</h4>", item)
+		}
+		HTML+=fmt.Sprintf("<h3>Preço: %.2f</h3>", cart.price)
+
+		HTML+="</fieldset>"
+
+		totalprice += cart.price
+	}
+	HTML+=fmt.Sprintf("<h2>Total: %.2f</h2>", totalprice)
+	return
+}
+
 func BatchRequest(
 	w util.HttpWriter, r util.HttpReq, email string,
 ) {
@@ -340,7 +397,7 @@ func BatchRequest(
 
 	fmt.Fprint(w, StageMap["ROOT"].HTML(""))
 	fmt.Fprint(w, `<p>Carrinho atualizado</p>`)
-	fmt.Fprintf(w, `<div hx-swap-oob="true" id="cart">%s</div>`, requests[email])
+	fmt.Fprintf(w, `<div hx-swap-oob="true" id="cart">%s</div>`, RenderCart(email))
 }
 
 var requests = make(map[string][]url.Values) // email -> forms

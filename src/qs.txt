@@ -1,27 +1,41 @@
 
 @ROOT
-"Tipo de serviço"
+"Tipo de serviço: "
 "IaaS":('IaaS')->IaaS
 "PaaS":('PaaS')->PaaS
 "SaaS":('SaaS')->SaaS
 
+@SaaS
+"Tipo de serviço: "
+"Serviços de Analytics":('Analytics')->SaaS Analytics
+"Serviço de distribuição de Conteudo":('CDN')->END =(70)
+
+@SaaS Analytics
+"Tipo de Análise: "
+"Serviço de BI":('Visualização de Dados')->END =(150)
+"Serviço de proteção de dados utilizando endpoint por número de processador por servidor":('Proteção de Dados')->END =(250)
+
 @IaaS
-"Tipo de serviço"
-"Cloud":('cloud')->Cloud Storage
+"Tipo de serviço: "
+"Cloud":('Cloud')->Cloud Storage =(100)
 
 @Cloud Storage
-"Gigabytes de armazenamento"
-"40-140":([input]+'GB')->Cloud RAM
+"Gigabytes de armazenamento: "
+"40-140":([input]+'GB de SSD')->Cloud RAM =(price+0.1*input)
 
 @Cloud RAM
-"Gigabytes de RAM"
-"1 GB":('1 GB')->Cloud CPU
-"2 GB":('2 GB')->Cloud CPU
-"4 GB":('4 GB')->Cloud CPU
+"Gigabytes de RAM: "
+"1 GB":('1 GB')->Cloud CPU =(price+10)
+"2 GB":('2 GB')->Cloud CPU =(price+15)
+"4 GB":('4 GB')->Cloud CPU =(price+30)
 
 @Cloud CPU
-"Quantidade de CPUs"
-"1 vCPU":('1 vCPU')->END
-"2 vCPUs":('2 vCPUs')->END
-"4 vCPUs":('4 vCPUs')->END
+"Quantidade de CPUs: "
+"1 vCPU":('1 vCPU')->END =(price+10)
+"2 vCPUs":('2 vCPUs')->END =(price+15)
+"4 vCPUs":('4 vCPUs')->END =(price+30)
+
+@PaaS
+"Tipo de serviço: "
+"":('')->END
 
