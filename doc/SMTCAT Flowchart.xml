@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-13T15:48:35.867Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="SSMf5YTFiOhntlE_Rqwy" version="22.1.8" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2023-12-13T15:48:58.616Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="QjBj6umLtdzdbBOk_byK" version="22.1.8" type="github" pages="5">
   <diagram id="iuHiyxhBxIihMmIdgnTv" name="Simplificado">
-    <mxGraphModel dx="3073" dy="1647" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="738" dy="395" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -424,42 +424,6 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="gZNc8SnY3DgvQ5VfROAn" name="SaaS">
-    <mxGraphModel dx="971" dy="520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="tEG6PUOfdjraeawUk83t-11" value="Tráfego de rede do CDN" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tEG6PUOfdjraeawUk83t-2" target="tEG6PUOfdjraeawUk83t-9">
-          <mxGeometry x="-0.0005" relative="1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="tEG6PUOfdjraeawUk83t-2" value="&lt;div&gt;Serviços de Analytics&lt;br&gt;&lt;/div&gt;&lt;div&gt;/&lt;br&gt;&lt;/div&gt;&lt;div&gt;Serviço de distribuição de Conteúdo&lt;br&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="349" y="220" width="140" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="tEG6PUOfdjraeawUk83t-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tEG6PUOfdjraeawUk83t-5" target="tEG6PUOfdjraeawUk83t-9">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="tEG6PUOfdjraeawUk83t-5" value="Serviço de BI (Visualização de Dados) /&lt;br&gt;Serviço de proteção de dados utilizando endpoint por número de processador por servidor" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" vertex="1" parent="1">
-          <mxGeometry x="330" y="361.91" width="266" height="116.77" as="geometry" />
-        </mxCell>
-        <mxCell id="tEG6PUOfdjraeawUk83t-6" value="Serviços de Analytics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.886;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="tEG6PUOfdjraeawUk83t-2" target="tEG6PUOfdjraeawUk83t-5">
-          <mxGeometry x="-0.1909" y="1" relative="1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="tEG6PUOfdjraeawUk83t-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tEG6PUOfdjraeawUk83t-7" target="tEG6PUOfdjraeawUk83t-2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="tEG6PUOfdjraeawUk83t-7" value="&lt;div&gt;SaaS&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="379" y="100" width="80" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="tEG6PUOfdjraeawUk83t-9" value="&lt;div&gt;Fim&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="200" y="380" width="80" height="80" as="geometry" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
   <diagram id="gxB7KPWw2DnEggqlDL6f" name="PaaS">
     <mxGraphModel dx="379" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -608,8 +572,44 @@
       </root>
     </mxGraphModel>
   </diagram>
+  <diagram id="gZNc8SnY3DgvQ5VfROAn" name="SaaS">
+    <mxGraphModel dx="971" dy="520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tEG6PUOfdjraeawUk83t-11" value="Tráfego de rede do CDN" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tEG6PUOfdjraeawUk83t-2" target="tEG6PUOfdjraeawUk83t-9">
+          <mxGeometry x="-0.0005" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tEG6PUOfdjraeawUk83t-2" value="&lt;div&gt;Serviços de Analytics&lt;br&gt;&lt;/div&gt;&lt;div&gt;/&lt;br&gt;&lt;/div&gt;&lt;div&gt;Serviço de distribuição de Conteúdo&lt;br&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="349" y="220" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="tEG6PUOfdjraeawUk83t-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tEG6PUOfdjraeawUk83t-5" target="tEG6PUOfdjraeawUk83t-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tEG6PUOfdjraeawUk83t-5" value="Serviço de BI (Visualização de Dados) /&lt;br&gt;Serviço de proteção de dados utilizando endpoint por número de processador por servidor" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" vertex="1" parent="1">
+          <mxGeometry x="330" y="361.91" width="266" height="116.77" as="geometry" />
+        </mxCell>
+        <mxCell id="tEG6PUOfdjraeawUk83t-6" value="Serviços de Analytics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.886;entryY=0.021;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="tEG6PUOfdjraeawUk83t-2" target="tEG6PUOfdjraeawUk83t-5">
+          <mxGeometry x="-0.1909" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tEG6PUOfdjraeawUk83t-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tEG6PUOfdjraeawUk83t-7" target="tEG6PUOfdjraeawUk83t-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tEG6PUOfdjraeawUk83t-7" value="&lt;div&gt;SaaS&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="379" y="100" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="tEG6PUOfdjraeawUk83t-9" value="&lt;div&gt;Fim&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="380" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Over View">
-    <mxGraphModel dx="7801" dy="4462" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
+    <mxGraphModel dx="6264" dy="3639" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
