@@ -1,20 +1,25 @@
-<mxfile host="app.diagrams.net" modified="2023-12-13T15:48:58.616Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="QjBj6umLtdzdbBOk_byK" version="22.1.8" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2023-12-13T17:06:11.005Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="C2LiTDfnr_3Z34svLF86" version="22.1.8" type="github" pages="5">
   <diagram id="iuHiyxhBxIihMmIdgnTv" name="Simplificado">
-    <mxGraphModel dx="738" dy="395" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1317" dy="706" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="XfPNg-EyJ3Iq0YvIYj14-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="slrZEwPScth0X39AVxJo-1" target="slrZEwPScth0X39AVxJo-3">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="311" y="210" />
+              <mxPoint x="361" y="210" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="slrZEwPScth0X39AVxJo-1" value="SMT / ITESP / outras" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;" vertex="1" parent="1">
-          <mxGeometry x="280.5" y="142" width="160" height="60" as="geometry" />
+          <mxGeometry x="230.5" y="122" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="XfPNg-EyJ3Iq0YvIYj14-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="slrZEwPScth0X39AVxJo-2" target="slrZEwPScth0X39AVxJo-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="slrZEwPScth0X39AVxJo-2" value="Iniciar" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="280.5" y="40" width="160" height="80" as="geometry" />
+          <mxGeometry x="230.5" y="20" width="160" height="80" as="geometry" />
         </mxCell>
         <mxCell id="XfPNg-EyJ3Iq0YvIYj14-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="slrZEwPScth0X39AVxJo-3" target="XfPNg-EyJ3Iq0YvIYj14-35">
           <mxGeometry relative="1" as="geometry">
@@ -142,11 +147,12 @@
         <mxCell id="XfPNg-EyJ3Iq0YvIYj14-38" value="Criação de Ticket no GLPI" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
           <mxGeometry x="466" y="760" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="XfPNg-EyJ3Iq0YvIYj14-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XfPNg-EyJ3Iq0YvIYj14-44" target="slrZEwPScth0X39AVxJo-2">
+        <mxCell id="XfPNg-EyJ3Iq0YvIYj14-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XfPNg-EyJ3Iq0YvIYj14-44" target="slrZEwPScth0X39AVxJo-3">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="688" y="270" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="700" y="80" />
+              <mxPoint x="700" y="210" />
+              <mxPoint x="361" y="210" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -425,7 +431,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="gxB7KPWw2DnEggqlDL6f" name="PaaS">
-    <mxGraphModel dx="379" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1199" dy="1098" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
