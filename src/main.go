@@ -115,5 +115,5 @@ func main() {
 	http.Handle("/ssearch/htmx", service.SSearchHTMX)
 
 	fmt.Println("running")
-	http.ListenAndServe("0.0.0.0:8080", nil)
+	panic(http.ListenAndServe("0.0.0.0:8080", nil))
 }
