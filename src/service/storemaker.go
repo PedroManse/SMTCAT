@@ -150,6 +150,9 @@ func (rng Orange) NextOptName(input string) (string) {
 }
 
 func (rng Orange) HTML(text, name, input string) (html string) {
+	if (input == "") {
+		input = strconv.FormatInt(rng.min, 10)
+	}
 	html = fmt.Sprintf(
 		`<div> <label for=%q>%s</label> <input tabindex="0" min="%d" max="%d" name=%q value="%s" type="number"> </div>`,
 		name, text, rng.min, rng.max, name, input,
