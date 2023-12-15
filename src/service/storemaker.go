@@ -76,21 +76,6 @@ func rngpriceEval(expr string, price float64, input int64) (newprice float64) {
 	return result.(float64)
 }
 
-func (rng Orange) ToIndex(input string) (int) {
-	vmin, e := strconv.ParseInt(input, 10, 64)
-	if (e!=nil) {panic(e)}
-	return int(vmin)
-}
-
-func (opts Ooption) ToIndex(input string) (int) {
-	for i, opt := range opts.Options {
-		if (opt.text == input) {
-			return i
-		}
-	}
-	return -1
-}
-
 func (opts Ooption) PriceEval(price float64, input string) (newprice float64) {
 	for _, opt := range opts.Options {
 		if (opt.text == input) {
@@ -130,6 +115,23 @@ func (opts Ooption) Validate(input string) (ok bool) {
 	return ok
 }
 
+func (opts Ooption) Serialize(input string) string {
+	for i, opt := range opts.Options {
+		if (opt.text == input) {
+			return strconv.FormatInt(int64(i), 10)
+		}
+	}
+	//assert false
+	return ""
+}
+
+func (opts Ooption) Deserialize(input string) string {
+	v, e := strconv.ParseInt(input, 10, 64)
+	if ( e != nil ) {panic(e)}
+	// assert input < Options.len
+	return opts.Options[v].text
+}
+
 func (opts Ooption) NextOptName(input string) (string) {
 	for _, opt := range opts.Options {
 		if (opt.text == input) {
@@ -142,7 +144,18 @@ func (opts Ooption) NextOptName(input string) (string) {
 
 func (rng Orange) Validate(input string) (bool) {
 	v, e := strconv.ParseInt(input, 10, 64)
-	return e==nil || (rng.min <= v && v <= rng.max)
+	return e==nil && (rng.min <= v && v <= rng.max)
+}
+
+func (rng Orange) Serialize(input string) string {
+	_, e := strconv.ParseInt(input, 10, 64)
+	if (e != nil) {panic(e)}
+	// assert e != nil
+	return input
+}
+
+func (rng Orange) Deserialize(input string) string {
+	return input
 }
 
 func (rng Orange) NextOptName(input string) (string) {
@@ -150,8 +163,11 @@ func (rng Orange) NextOptName(input string) (string) {
 }
 
 func (rng Orange) HTML(text, name, input string) (html string) {
-	if (input == "") {
+	v, _ := strconv.ParseInt(input, 10, 64)
+	if (input == "" || v < rng.min) {
 		input = strconv.FormatInt(rng.min, 10)
+	} else if (v > rng.max) {
+		input = strconv.FormatInt(rng.max, 10)
 	}
 	html = fmt.Sprintf(
 		`<div> <label for=%q>%s</label> <input tabindex="0" min="%d" max="%d" name=%q value="%s" type="number"> </div>`,
@@ -193,8 +209,9 @@ type CartOption interface {
 	NextOptName(input string) string
 	// HTML representation of stage (if input=""; no option/range has been selected)
 	HTML(text, name, input string) string
-	// (in case of Ooption) string value to index of choice
-	ToIndex(input string) int
+	// Serialize/Deserialize input
+	Serialize(input string) string
+	Deserialize(input string) string
 }
 
 type _option struct {
@@ -221,6 +238,39 @@ type Stage struct {
 	StageText string
 	Opt CartOption
 	RangeOrOption StageMode
+}
+
+// shopping cart
+type cface struct {
+	items []string
+	price float64
+}
+
+func DeserializeRequest(serial string) (out url.Values) {
+	out = make(url.Values)
+	steps := strings.Split(serial, ";")
+	var node *Stage = StageMap["ROOT"]
+
+	for i := 0; node.StageName != "END"; i++ {
+		input := node.Opt.Deserialize(steps[i])
+		out.Set(node.StageName, input)
+		node = node.Next(input, StageMap)
+	}
+	return
+}
+
+// should only do this is .Values ends in @END
+func SerializeRequest(rlist url.Values) (out string) {
+	var node *Stage = StageMap["ROOT"]
+	for {
+		input := rlist.Get(node.StageName)
+		// assert node.Opt.Validate(input)
+		out += node.Opt.Serialize(input)
+		node = node.Next(input, StageMap)
+		if (node.StageName == "END") {break}
+		out += ";"
+	}
+	return out
 }
 
 func (S Stage) Next(input string, StageMap map[string]*Stage) (newstage *Stage) {
@@ -330,14 +380,19 @@ func renderHTMX(
 	var node *Stage = StageMap["ROOT"]
 	for node != nil{
 		input := r.FormValue(node.StageName)
-		fmt.Fprintf(w, node.HTML(input))
-		if (node.Opt.Validate(input)) {
-			node = node.Next(input, StageMap)
-		} else if (input != "") {
+		valid := node.Opt.Validate(input)
+
+		if (!valid && input != ""){
 			panic(fmt.Errorf("INVALID INPUT: %q", input))
-		} else { // input == ""
+		}
+
+		fmt.Fprintf(w, node.HTML(input))
+		if (valid) {
+			node = node.Next(input, StageMap)
+		} else {
 			break
 		}
+
 
 		if (node.StageName == "END") {
 			fmt.Fprintf(w, `
@@ -354,15 +409,16 @@ func renderHTMX(
 	}
 }
 
-type cface struct {
-	items []string
-	price float64
-}
-
+var requests = make(map[string][]url.Values) // email -> forms
 func RenderCart(email string) (HTML string) {
 	var cartlist = make([]cface, len(requests[email]))
 
 	for i, rlist := range requests[email] {
+		fmt.Println(rlist)
+		a := SerializeRequest(rlist)
+		fmt.Println(a)
+		fmt.Println(DeserializeRequest(a))
+
 		var requestlist = []string{}
 		var requestprice float64
 
@@ -403,7 +459,6 @@ func BatchRequest(
 	fmt.Fprintf(w, `<div hx-swap-oob="true" id="cart">%s</div>`, RenderCart(email))
 }
 
-var requests = make(map[string][]url.Values) // email -> forms
 func ssearchHtmxHandler(
 	w util.HttpWriter, r util.HttpReq, info map[string]any,
 ) (render bool, addinfo any) {

@@ -21,7 +21,7 @@
 
 @Cloud Storage
 "Gigabytes de armazenamento: "
-"40-140":([input]+'GB de SSD')->Cloud RAM =(price+0.1*input)
+"40-32768":([input]+'GB de SSD')->Cloud RAM =(price+0.1*input)
 
 @Cloud RAM
 "Gigabytes de RAM: "
@@ -37,5 +37,48 @@
 
 @PaaS
 "Tipo de serviço: "
-"":('')->END
+"Serviço de DB":('Serviço de DB')->PaaS DB
+"Armazenamento de dados":('Armazenamento de dados')->PaaS DB Armazenamento
+"Serviço de computação serverless":('Serviço de computação serverless')->PaaS Serverless
+"Serviço de container":('Serviço de container')->PaaS Container
+"Serviço de Cache":('Serviço de Cache')->PaaS Cache
+
+@PaaS DB
+"Sistema de Base de dados: "
+"MySQL":('MySQL')->PaaS DB Spec
+"PostgreSQL":('PostgreSQL')->PaaS DB Spec
+"SQLServer":('SQLServer')->PaaS DB Spec
+"ORACLE":('ORACLE')->PaaS DB_Oracle Spec
+
+@PaaS DB Spec
+"Especificações do servidor: "
+"4 vCPUs e 16 GB de memória RAM":('4 vCPU, 16 GB RAM')->PaaS DB Armazenamento
+"8 vCPUs e 32 GB de memória RAM":('8 vCPU, 32 GB RAM')->PaaS DB Armazenamento
+"16 vCPUs e 64 GB de memória RAM":('16 vCPU, 64 GB RAM')->PaaS DB Armazenamento
+"32 vCPUs e 128 de GB memória RAM":('32 vCPU, 128 GB RAM')->PaaS DB Armazenamento
+
+@PaaS DB_Oracle Spec
+"Especificações do servidor: "
+"4 vCPUs e 16 GB de memória RAM":('4 vCPUs e 16 GB de memória RAM')->PaaS DB Armazenamento
+"8 vCPU e 32 GB de memória RAM":('8 vCPU e 32 GB de memória RAM')->PaaS DB Armazenamento
+"16 vCPU e 64 GB de memória RAM":('16 vCPU e 64 GB de memória RAM')->PaaS DB Armazenamento
+
+@PaaS DB Armazenamento
+"Tamanho do SSD do servidor: "
+"40-32768":([input]+'GB')->END =(price+0.1*input)
+
+@PaaS Serverless
+"Estilo de Serverless: "
+"Requisições das funções":('Por requisição')->END
+"Tempo de Execução das funções":('Por tempo de execução')->END
+
+@PaaS Container
+"Gerenciador de Container: "
+"Serviço Gerenciado de Kubernetes":('Kubernetes')->END
+
+@PaaS Cache
+"Gerenciado de memória RAM: "
+"6 GB":('6 GB')->END
+"26 GB":('26 GB')->END
+"52 GB":('52 GB')->END
 
