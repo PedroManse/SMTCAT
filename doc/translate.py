@@ -11,8 +11,8 @@ info = {
     "tipo":["paas", "saas", "iaas"],
     "serviço":["serviços de db (por demanda)", "armazenamento de banco de dados", "serviço de cache gerenciado de memória ram", "serviços de container", "serviço de computção sem servidor - serverless (por demanda)"],
     "sgbd":["mysql", "postgresql", "sqlserver", "oracle"],
-    "vcpu":["4", "8", "16", "32"],
-    "memória ram":["16gb", "32gb", "64gb", "128gb"],
+    "vcpu":["1 vcpu", "2 vcpus", "4 vcpus", "8 vcpus", "16 vcpus", "32 vcpus"],
+    "memória ram":["2gb", "4gb", "8gb", "16gb", "32gb", "64gb", "128gb"],
     "memória cache":["mínimo 6gb", "mínimo 26gb", "mínimo 52gb"],
     "métrica":["instância/hora", "gb/mês", "unidade/hora", "milhão de requisições/mês", "gb/segundo"],
 }
@@ -42,9 +42,9 @@ if not out:
 
 for sec in out:
     clr = color_red if out[sec][0] else color_nc
-    print(f"{clr}{sec}{color_nc}:")
+    print(f"\n{clr}{sec}{color_nc}:")
     for item_index in range(len(info[sec])):
         item = info[sec][item_index]
         clr = color_red if item in out[sec][1] else color_grey
-        print(f"{clr}{item_index}{color_nc}:\t{clr}{item}{color_nc}")
+        print(f"{clr}{item_index+1}{color_nc}:\t{clr}{item}{color_nc}")
 
